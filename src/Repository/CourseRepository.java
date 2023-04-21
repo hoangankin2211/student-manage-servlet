@@ -87,6 +87,19 @@ public class CourseRepository {
         return courses;
     }
 
+    public List<Student> getAllStudentEnrollment(int courseId, int year) throws SQLException, ParseException {
+        final ResultSet result = MySqlUtils.getInstance().query("select * from student_enrollment where courseId= " + courseId + " and year = "+ year + ";");
+
+        List<Student> students = new ArrayList<>();
+
+        while (result.next()) {
+            final Student student = StudentRepository.getInstance().getStudentById(result.getInt("studentId"));
+            students.add(student);
+        }
+
+        return students;
+    }
+
     public Course getCourseById(int id) throws SQLException {
         final ResultSet result = MySqlUtils.getInstance().query("select * from course where idCourse = " + id + ";");
         ResultSetMetaData resultSetMetaData = result.getMetaData();

@@ -19,7 +19,5 @@ public class Main {
 //            System.out.println(course.getYear());
 //        }
 
-        CourseService.getInstance().editCourse(new Course(4,"BA4+","test2",2023,"testNotes"));
-
     }
 }

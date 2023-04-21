@@ -6,14 +6,14 @@ import java.time.*;
 import java.util.Map;
 
 public class Student {
-     final String id;
+     final int id;
      String name;
      double grade;
      LocalDate birthday;
      String address;
      String notes;
 
-    public Student(String id, String name, double grade, LocalDate birthday, String address, String notes) {
+    public Student(int id, String name, double grade, LocalDate birthday, String address, String notes) {
         this.id = id;
         this.name = name;
         this.grade = grade;
@@ -23,7 +23,7 @@ public class Student {
     }
 
     public Student(Map<String, Object> mapData) throws ParseException {
-        this.id = String.valueOf(mapData.get("id"));
+        this.id = Integer.parseInt(String.valueOf(mapData.get("id")));
         this.name = String.valueOf(mapData.get("name"));
         this.grade = Double.parseDouble(mapData.get("grade").toString());
         this.birthday = LocalDate.parse(mapData.get("birthday").toString());
@@ -32,7 +32,7 @@ public class Student {
         this.notes = String.valueOf(mapData.get("notes"));
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

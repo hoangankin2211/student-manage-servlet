@@ -2,6 +2,7 @@ package Service;
 
 import AppDatabase.MySqlUtils;
 import Models.Course;
+import Models.Student;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -14,36 +15,18 @@ public class StudentService {
     }
     private StudentService(){}
 
-    public boolean addCourse(String name, double grade, LocalDate birthday,String address, String notes)  {
-        try {
+    public void addStudent(String name, double grade, LocalDate birthday,String address, String notes) throws SQLException {
             MySqlUtils.getInstance().query("insert into course  (name,grade,birthday,address,notes) values (\""+ name + "\"," + grade+",\""+birthday+ "\");");
-            return true;
-        } catch (SQLException e) {
-            System.out.println(e.toString());
-            return false;
-        }
     }
 
-    public boolean deleteCourse(int id,int year){
-        try {
-            MySqlUtils.getInstance().query("DELETE from course where idCourse = "+ id + " and year = "+ year + ";");
-            return true;
-        } catch (SQLException e) {
-            System.out.println(e.toString());
-            return false;
-        }
+    public void deleteStudent(int id) throws SQLException {
+            MySqlUtils.getInstance().query("DELETE from student where id = "+ id + ";");
     }
 
-    public boolean editCourse(Course course){
-        try {
+    public void editStudent(int id, String name, double grade, LocalDate birthday, String address, String notes) throws SQLException {
 
-            MySqlUtils.getInstance().query("UPDATE course\n" +
-                    "            SET name = \"" + course.getName() +"\", lecture = \"" + course.getLecture() + "\", year = "+ course.getYear() + " , notes = \""+course.getNotes()+ "\"\n" +
-                    "            WHERE idCourse = " + course.getIdCourse() + ";");
-            return true;
-        } catch (SQLException e) {
-            System.out.println(e.toString());
-            return false;
-        }
+            MySqlUtils.getInstance().query("UPDATE student\n" +
+                    "            SET name = \"" + name +"\", grade = \"" + grade + "\", birthday = "+ birthday + "\", address = "+address + " , notes = \""+notes+ "\"\n" +
+                    "            WHERE id = " + id + ";");
     }
 }

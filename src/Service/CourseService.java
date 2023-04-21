@@ -13,36 +13,19 @@ public class CourseService {
     }
     private CourseService(){}
 
-    public boolean addCourse(String name,String lecture, int year,String notes)  {
-        try {
-            MySqlUtils.getInstance().query("insert into course  (name,lecture,year,notes) values (\""+ name + "\",\"" + lecture+"\","+year+",\""+notes+ "\");");
-            return true;
-        } catch (SQLException e) {
-            System.out.println(e.toString());
-            return false;
-        }
+    public void addCourse(String name,String lecture, int year,String notes) throws SQLException {
+        MySqlUtils.getInstance().query("insert into course (name,lecture,year,notes) " +
+                "values (\""+ name + "\",\"" + lecture+"\","+year+",\""+notes+ "\");");
     }
 
-    public boolean deleteCourse(int id,int year){
-        try {
-            MySqlUtils.getInstance().query("DELETE from course where idCourse = "+ id + " and year = "+ year + ";");
-            return true;
-        } catch (SQLException e) {
-            System.out.println(e.toString());
-            return false;
-        }
+    public void deleteCourse(int id,int year) throws SQLException {
+        MySqlUtils.getInstance().query("DELETE from course where idCourse = "
+                + id + " and year = "+ year + ";");
     }
 
-    public boolean editCourse(Course course){
-        try {
-
-            MySqlUtils.getInstance().query("UPDATE course\n" +
-                    "            SET name = \"" + course.getName() +"\", lecture = \"" + course.getLecture() + "\", year = "+ course.getYear() + " , notes = \""+course.getNotes()+ "\"\n" +
-                    "            WHERE idCourse = " + course.getIdCourse() + ";");
-            return true;
-        } catch (SQLException e) {
-            System.out.println(e.toString());
-            return false;
-        }
+    public void editCourse(int id,String name,String lecture,int year,String notes) throws SQLException {
+        MySqlUtils.getInstance().query("UPDATE course\n" +
+        "            SET name = \"" + name+"\", lecture = \"" +lecture + "\", year = "+year + " , notes = \""+notes+ "\"\n" +
+        "            WHERE idCourse = " + id + ";");
     }
 }
